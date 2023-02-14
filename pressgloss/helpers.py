@@ -9,7 +9,12 @@ import random
 import configparser
 
 # 3rd-party imports
-import mariadb
+try:
+  import mariadb
+  HAS_MARIADB = True
+except:
+  HAS_MARIADB = False
+
 from bs4 import BeautifulSoup
 
 # pressgloss imports
@@ -72,7 +77,7 @@ def getSQLConnection(): # type: () -> mariadb.Connection
   :rtype: mariadb.Connection
 
   """
-
+  if not HAS_MARIADB: raise Exception('!! mariadb not available')
   global configs
 
   myuser = 'root'
